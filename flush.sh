@@ -1,2 +1,0 @@
-rm err/*
-rm out/*
