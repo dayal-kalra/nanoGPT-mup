@@ -231,6 +231,8 @@ def train_and_evaluate(cfg, device):
 
 parser = argparse.ArgumentParser(description = 'Experiment parameters')
 parser.add_argument('--cluster', type = str, default = 'zaratan')
+parser.add_argument('--dtype', type = str, default = 'float32')
+# 'float32', 'bfloat16', or 'float16', the latter will auto implement a GradScaler
 
 ### dataset 
 parser.add_argument('--dataset_name', type = str, default = 'fineweb')
@@ -277,7 +279,7 @@ parser.add_argument('--verbose', type = bool, default = False)
 cfg = parser.parse_args()
 
 cfg.use_bias = True if cfg.bias == 'True' else False
-cfg.dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32', 'bfloat16', or 'float16', the latter will auto implement a GradScaler
+# cfg.dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32', 'bfloat16', or 'float16', the latter will auto implement a GradScaler
 cfg.embd_dim = cfg.head_dim * cfg.num_heads
 cfg.lr_min = cfg.lr_peak / cfg.lr_min_factor
 

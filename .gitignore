@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore dataset .bin files
+*.bin
+# Ignore the results as well
+results*

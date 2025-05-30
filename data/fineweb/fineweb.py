@@ -7,15 +7,6 @@ import numpy as np
 import tiktoken
 from datasets import load_dataset # huggingface datasets
 
-
-# Ensure tokenizer files are in the right place
-TOKENIZER_PATH = os.path.expanduser("~/.cache/tiktoken")
-if not os.path.exists(TOKENIZER_PATH):
-    raise FileNotFoundError(
-        "Tokenizer files not found. Please copy the tokenizer directory to ~/.cache/tiktoken/"
-    )
-
-
 # number of workers in .map() call
 # good number to use is ~order number of cpu cores // 2
 num_proc = 8
@@ -29,14 +20,11 @@ enc = tiktoken.get_encoding("gpt2")
 
 if __name__ == '__main__':
     # takes 54GB in huggingface .cache dir, about 8M documents (8,013,769)
-    print("Loading dataset from disk...")
-    dataset = load_from_disk("/home/dayal/scratch.mzms/datasets/fineweb-edu-10B/")
-    ##dataset = load_dataset("HuggingFaceFW/fineweb-edu", name = "sample-10BT", num_proc = num_proc_load_dataset)
+    dataset = load_dataset("HuggingFaceFW/fineweb", name = 'sample-10BT', num_proc = num_proc_load_dataset)
 
     # owt by default only contains the 'train' split, so create a test split
-    split_dataset = dataset["train"].train_test_split(test_size = 0.0005, seed = 2357, shuffle = True)
+    split_dataset = dataset["train"].train_test_split(test_size=0.0005, seed=2357, shuffle=True)
     split_dataset['val'] = split_dataset.pop('test') # rename the test split to val
-    print(split_dataset)
 
     # this results in:
     # >>> split_dataset
