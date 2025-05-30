@@ -346,6 +346,7 @@ base_filename = (
     f'Tw{cfg.warmup_steps}_'
     f'r{cfg.warmup_exponent}_'
     f'Ts{cfg.stable_steps}_'
+    f'{cfg.decay_schedule_name}'
     f'p{cfg.decay_exponent}_'
     f'T{cfg.num_steps}_'
     f'ga{cfg.gradient_accumulation_steps}_'
